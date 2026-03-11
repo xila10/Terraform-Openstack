@@ -31,7 +31,7 @@ terraform destroy
 ```
 
 # How Terraform Connects to Openstack:
-We install Terraform on a local Virtual Machine, this will serve as out configuraiton platform. The instructions to install terraform are available on Hashicorp Cloud Platform https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli. To connect our VM to our cloud environment, we download the openrc.sh file available after login.
+We install Terraform on a local Virtual Machine, this will serve as our configuration platform. The instructions to install Terraform are available on [Hashicorp Cloud Platform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). To connect our VM to our cloud environment, we download the openrc.sh file available after login.
 # OpenRC.sh file
 An OpenRC file (openrc.sh) contains environment variable export commands used to authenticate to an OpenStack environment via the CLI.
 
