@@ -124,6 +124,17 @@ In this way, we integrate predefined resource blocks within new ones to link it 
 
 Using data source to pull existing data about the external-net. 
 
+# Router setup: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104820.png?raw=true)
+
+Resource type “openstack_networking_router_v2”, naming it ‘rtr-1’ in Terraform and in The Cloud. We give the router an external gateway → ‘ext-net’ to ‘rtr-1’. Observe, again we are using data source to pull on existing data since the network is not managed or configured by us. 
+
+Here, creating the interfaces on to which we connect our subnets; using the “..._router_interface” resource type: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104827.png?raw=true)
+
+One interface is named “rtr-int1” and refers to the router and the subnet; thus creating a connection between them. A port on the router is created, and the router receives an ip address in the subnet. 
 
 
 
