@@ -25,7 +25,9 @@ terraform plan
 terraform apply
 terraform destroy
 
-# Use the plan command to create an output which specifies beyond a doubt what will be crated/destroyed - IMPORTANT in a live environment.
+# Use the 'plan' command to create an output which specifies beyond a doubt what will be created/destroyed
+# This is VERY IMPORTANT in a live environment.
+# Ex: terraform plan -out=plan.tfplan(1)
 ```
 
 # How Terraform Connects to Openstack:
