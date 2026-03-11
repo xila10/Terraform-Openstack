@@ -1,7 +1,7 @@
 # Terraform OpenStack Deployment
 
 ## Description
-This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastrucuture the applikation Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
+This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastrucuture the application Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
 
 ## Technologies
 - Terraform
