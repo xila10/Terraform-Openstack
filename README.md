@@ -156,6 +156,24 @@ Below are the security groups and rules assigned to them:
 
 The instances mentioned before are assigned to each security group. In the screenshot above, we have a remote group attached; this connects the specified rules of traffic to another sec.group (being bastion_sg). SSH-traffic is only permitted from bastion_sg! 
 
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/HTTP.png?raw=true)
+
+HTTP rules.
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/HTTPS.png?raw=true)
+
+HTTPS rules. These can be locked down further by only permitting certain IP addresses.
+
+SSH-rule allowing incoming connections from the internet:
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104913.png?raw=true)
+
+Since we have a complete SSH config file locally provided with path to keypairs and credentials for the hosts, as well as the instances being provisioned with the corresponding authentication credentials for SSH, and security rules protecting the flow of SSH-traffic in the cloud – we now have SSH properly set up in a clean and secure way; the internal instance only being accessible through the Bastion.
+
+
+
+
+
 
 
 
