@@ -1,5 +1,33 @@
-# Terraform-Openstack
-An overview and description of the code ran in Terraform to create a working infrastructure in a cloudenvironment, made possible by Openstack. 
+# Terraform OpenStack Deployment
+
+## Description
+This project demonstrates how to deploy infrastructure in OpenStack using Terraform.
+
+## Technologies
+- Terraform
+- OpenStack
+- OpenStack CLI
+- VirtualBox (or other Hypervizor of your choice)
+- Wireguard VPN
+
+## Setup
+
+1. Initialize Terraform
+2. Source the OpenRC file
+3. Connect to environment
+4. Run the deployment
+
+## Commands
+
+```bash
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+
+# Use the plan command to create an output which specifies beyond a doubt what will be crated/destroyed - IMPORTANT in a live environment.
+```
+
 # How Terraform Connects to Openstack:
 We install Terraform on a local Virtual Machine, this will serve as out configuraiton platform. The instructions to install terraform are available on Hashicorp Cloud Platform https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli. To connect our VM to our cloud environment, we download the openrc.sh file available after login.
 # OpenRC.sh file
