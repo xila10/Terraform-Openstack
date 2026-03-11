@@ -18,5 +18,7 @@ Resource access, project ID, region, log in credentials and more, as mentioned, 
 
 # Locals and providers: 
 The locals block defines reusable values inside the Terraform configuration. Instead of repeating image IDs or the floating IP network name multiple times, we store them once and reference them where needed.  
+
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104629.png?raw=true)
+
 The terraform block defines which provider Terraform must use. In this case, it specifies the OpenStack provider and where Terraform should download it from. This ensures the correct plugin is installed when running terraform init. The provider block tells Terraform how to connect to the cloud environment. Here it is empty because authentication details come from environment variables loaded via the openrc.sh file. Without a provider block, Terraform would not know where to create the infrastructure. 
