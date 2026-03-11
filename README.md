@@ -95,6 +95,39 @@ Lastly, we create a resource containing the allocated floating ip and the port c
 
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104739.png?raw=true)
 
+# Instances: 
+An example of an instance in Terraform: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104748.png?raw=true)
+
+Attributes provided describe what resources the instance will have access to, be connected to as well as name in the cloud etc. Security groups of which the instance is a member of (governs ingress/egress traffic) and keypairs to be included in the creation of the instance.  
+
+We also have “block_device” which provides instructions for how the disc is to be created and linked. This is a nested block, meaning it is included in the “Bastion” block in this case. 
+
+We can read that the data is coming from an “image”, the volume size will be “10” Gib and should the instance be deleted; also, the volume connected to it will be. Also, we have an entry for which network the instance will be connected to. Referred in the resource type above is “labnet-2”. 
+
+# Networks: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104758.png?raw=true)
+
+As the name suggests, this is a resource that creates a network named “labnet-2”. Underneath we have defined the subnet connected to the network – this is where all the details are provided relevant to a functioning network. 
+
+Within “labsub-2" we have provided the attribute “network_id” that links it to the network “labnet-2” through the syntax as discussed before:  
+
+(resource type) openstack_networking_network_v2  + (predefined resource block) labnet-2 + attribute-type. 
+
+In this way, we integrate predefined resource blocks within new ones to link it all together. Through a similar process we set up our router, connecting it to our networks and linking it to the predefined external network already available through the cloud environment.
+
+# External net: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104812.png?raw=true)
+
+Using data source to pull existing data about the external-net. 
+
+
+
+
+
 
 
 
