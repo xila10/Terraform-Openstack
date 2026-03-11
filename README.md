@@ -1,14 +1,14 @@
 # Terraform OpenStack Deployment
 
 ## Description
-This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastrucuture the application Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
+This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastructure the application Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
 
 ## Technologies
 - Terraform
 - OpenStack
 - OpenStack CLI
-- VirtualBox (or other Hypervizor of your choice)
-- Wireguard VPN
+- VirtualBox (or other Hypervisor of your choice)
+- WireGuard VPN
 
 ## Setup
 
@@ -44,7 +44,7 @@ It typically includes:
 
 **Purpose:** When you source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like openstack server list) without manually entering authentication details each time.
 # Regarding connectivity and authorization: 
-Resource access, project ID, region, log in credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We reach the environment on (in this case) a Wireguard VPN which is setup based on a config file containing; ip address, private- and publickey, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
+Resource access, project ID, region, login credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We reach the environment on (in this case) a Wireguard VPN which is setup based on a config file containing; ip address, private- and publickey, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
 
 # Locals and providers: 
 The locals block defines reusable values inside the Terraform configuration. Instead of repeating image IDs or the floating IP network name multiple times, we store them once and reference them where needed.  
