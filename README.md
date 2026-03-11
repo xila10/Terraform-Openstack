@@ -136,6 +136,27 @@ Here, creating the interfaces on to which we connect our subnets; using the “.
 
 One interface is named “rtr-int1” and refers to the router and the subnet; thus creating a connection between them. A port on the router is created, and the router receives an ip address in the subnet. 
 
+# Key-pairs: 
+We also provide Terraform with the necessary information to include the components for SSH connections. Applying the knowledge about the workings of Terraform we can, with the details provided below, see a resource block describing the keypair “labb_key”: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104837.png?raw=true)
+
+It is named within Terraform and in the cloud. The path provided contains the following: 
+
+- file() -  Built in Terraform function; reads the contents of a file. 
+- path.module - Terraform variable; the directory where the .tf-files are (aka. the terraform module) 
+- /keys/labb_key.pub - the path relative to the path.module. 
+
+The expression “public_key = file("${path.module}/keys/labb_key.pub")“ therefore gives the path to the public key, reads it and sends its contents to Openstack. The instances referring to this resource block get the public key for authentication. The “${...}” expands the expression within it and adds the following information, while “file( )” reads it. The results are contained within the attribute “public_key”. 
+
+# Security Groups: 
+Below are the security groups and rules assigned to them: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104855.png?raw=true)
+
+The instances mentioned before are assigned to each security group. In the screenshot above, we have a remote group attached; this connects the specified rules of traffic to another sec.group (being bastion_sg). SSH-traffic is only permitted from bastion_sg! 
+
+
 
 
 
