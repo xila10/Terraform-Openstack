@@ -6,11 +6,11 @@ We install Terraform on a local Virtual Machine, this will serve as out configur
 An OpenRC file (openrc.sh) contains environment variable export commands used to authenticate to an OpenStack environment via the CLI.
 
 It typically includes:
--username (OS_USERNAME)
--project/tenant name (OS_PROJECT_NAME)
--authentication URL (OS_AUTH_URL)
--region (OS_REGION_NAME)
--API version variables
+- username (OS_USERNAME)
+- project/tenant name (OS_PROJECT_NAME)
+- authentication URL (OS_AUTH_URL)
+- region (OS_REGION_NAME)
+- API version variables
 
 Purpose:
 When you run source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like openstack server list) without manually entering authentication details each time.
