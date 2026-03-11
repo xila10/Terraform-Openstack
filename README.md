@@ -46,3 +46,26 @@ These categories create the necessary resources needed for my cloud environment 
 Through SSH I can connect from my local computer to the internal instance running the application (no floating IP) through the bastion, using a shell of my choice to do so. I have set up a config file instructing the SSH-server to connect to the instances using the information provided: IP addresses, users and path to ssh-key. I also have instructed to use Proxy Jump; the instructions are understood by the SSH-client as “connect to internal instance through the Bastion instance; using the credentials provided”. 
 
 The structure of the config file is according to standards and syntax and provides easier and cleaner connectivity; absolving the user of the need to write long commands. 
+
+**Configfile:** Here are the following configs for SSH connections: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104656.png?raw=true)
+
+This config file has a need for updating however, every time Terraform creates the infrastructure anew a different IP address is chosen from the pool – this means a hard coded value will be outdated every time Terraform runs. I have solved this by running a bash script that updates the config file with new information.  
+
+The script is run after a successful Terraform operation (terraform apply) and is as follows: 
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104705.png?raw=true)
+
+The new IP address value is placed in each variable and used in the new SSH config file. The old file is overwritten, and the updated file is ready for usage.  
+The command line “$(terraform output -raw bastion_ip)” is dependent on a piece of Terraform code named “bastion_ip”. It looks like this:
+
+![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104714.png?raw=true)
+
+A similar piece of code exists for the internal instance “Cobra” as well; pulling its assigned ip address.  
+The code above instructs Terraform to create an output of the floating ip resource type associated with “Bastion_fip”; another piece of code that creates the floating ip from the available pool. More about this and the workings of Terraform code later.
+
+
+
+
+
