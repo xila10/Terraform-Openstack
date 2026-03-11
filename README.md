@@ -15,3 +15,7 @@ It typically includes:
 **Purpose:** When you source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like openstack server list) without manually entering authentication details each time.
 # Regarding connectivity and authorization: 
 Resource access, project ID, region, log in credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We reach the environment on (in this case) a Wireguard VPN which is setup based on a config file containing; ip address, private- and publickey, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
+
+# Locals and providers: 
+The locals block defines reusable values inside the Terraform configuration. Instead of repeating image IDs or the floating IP network name multiple times, we store them once and reference them where needed.  
+The terraform block defines which provider Terraform must use. In this case, it specifies the OpenStack provider and where Terraform should download it from. This ensures the correct plugin is installed when running terraform init. The provider block tells Terraform how to connect to the cloud environment. Here it is empty because authentication details come from environment variables loaded via the openrc.sh file. Without a provider block, Terraform would not know where to create the infrastructure. 
