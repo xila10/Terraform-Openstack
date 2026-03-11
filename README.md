@@ -54,7 +54,7 @@ It typically includes:
 - region (OS_REGION_NAME)
 - API version variables
 
-**Purpose:** When you source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like openstack server list) without manually entering authentication details each time.
+**Purpose:** When you source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like OpenStack server list) without manually entering authentication details each time.
 
 # Regarding connectivity and authorization: 
 Resource access, project ID, region, login credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We access the environment through a WireGuard VPN. which is setup based on a config file containing; ip address, private and public key, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
@@ -186,7 +186,7 @@ It is named within Terraform and in the cloud. The path provided contains the fo
 - path.module - Terraform variable; the directory where the .tf-files are (aka. the terraform module) 
 - /keys/labb_key.pub - the path relative to the path.module. 
 
-The expression “public_key = file("${path.module}/keys/labb_key.pub")“ therefore gives the path to the public key, reads it and sends its contents to Openstack. The instances referring to this resource block get the public key for authentication. The “${...}” expands the expression within it and adds the following information, while “file( )” reads it. The results are contained within the attribute “public_key”. 
+The expression “public_key = file("${path.module}/keys/labb_key.pub")“ therefore gives the path to the public key, reads it and sends its contents to OpenStack. The instances referring to this resource block get the public key for authentication. The “${...}” expands the expression within it and adds the following information, while “file( )” reads it. The results are contained within the attribute “public_key”. 
 
 # Security Groups: 
 Below are the security groups and rules assigned to them: 
