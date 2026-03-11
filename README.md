@@ -1,7 +1,17 @@
 # Terraform OpenStack Deployment
 
-## Description
-This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastructure the application Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
+# Description
+This project demonstrates how to deploy infrastructure in OpenStack using Terraform. After creating the infrastructure, the application Nextcloud was deployed - this process will not be included here, but the text might refer to Nextcloud in some places.
+
+# Architecture
+
+The environment consists of:
+
+- A bastion host with a floating IP
+- An internal instance running the application, Nextcloud.
+- Two internal networks
+- A router connected to the external network
+- Security groups controlling SSH and web traffic
 
 ## Technologies
 - Terraform
@@ -20,6 +30,8 @@ This project demonstrates how to deploy infrastructure in OpenStack using Terraf
 ## Commands
 
 ```bash
+## Terraform Commands
+
 terraform init
 terraform plan
 terraform apply
@@ -31,7 +43,7 @@ terraform destroy
 ```
 
 # How Terraform Connects to Openstack:
-We install Terraform on a local Virtual Machine, this will serve as our configuration platform. The instructions to install Terraform are available on [Hashicorp Cloud Platform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). To connect our VM to our cloud environment, we download the openrc.sh file available after login.
+We install Terraform on a local virtual machine, this will serve as our configuration platform. The instructions to install Terraform are available on [Hashicorp Cloud Platform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). To connect our VM to our cloud environment, we download the openrc.sh file available after login.
 # OpenRC.sh file
 An OpenRC file (openrc.sh) contains environment variable export commands used to authenticate to an OpenStack environment via the CLI.
 
@@ -43,8 +55,9 @@ It typically includes:
 - API version variables
 
 **Purpose:** When you source openrc.sh, these variables are loaded into your shell so you can execute OpenStack CLI commands (like openstack server list) without manually entering authentication details each time.
+
 # Regarding connectivity and authorization: 
-Resource access, project ID, region, login credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We reach the environment on (in this case) a Wireguard VPN which is setup based on a config file containing; ip address, private- and publickey, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
+Resource access, project ID, region, login credentials and more, as mentioned, are sourced from the local virtual machine we run Terraform on, through the openrc.sh file. We access the environment through a WireGuard VPN. which is setup based on a config file containing; ip address, private and public key, Endpoint and more. This establishes a connection between our network and the hosted network on which we reach the Openstack environment.
 
 # Locals and providers: 
 The locals block defines reusable values inside the Terraform configuration. Instead of repeating image IDs or the floating IP network name multiple times, we store them once and reference them where needed.  
@@ -60,7 +73,7 @@ The Openstack provider and where Terraform should download it from.
 Sources variables from openrc.sh file. 
 
 # Terraform code: 
-In this section we cover the code in Terraform and how it works; how it creates resources and an overview of what it consists of. The code in the project covers the following: 
+In this section we cover the code in Terraform and how it works; how it creates resources and an overview of what it contains. The code in the project covers the following: 
 
 - Networks 
 - Compute 
@@ -75,9 +88,9 @@ These categories create the necessary resources needed for my cloud environment 
 # SSH: 
 Through SSH I can connect from my local computer to the internal instance running the application (no floating IP) through the bastion, using a shell of my choice to do so. I have set up a config file instructing the SSH-server to connect to the instances using the information provided: IP addresses, users and path to ssh-key. I also have instructed to use Proxy Jump; the instructions are understood by the SSH-client as “connect to internal instance through the Bastion instance; using the credentials provided”. 
 
-The structure of the config file is according to standards and syntax and provides easier and cleaner connectivity; absolving the user of the need to write long commands. 
+The structure of the config file is according to standards and syntax and provides easier and cleaner connectivity; relieving the user from having to write long commands. 
 
-**Configfile:** Here are the following configs for SSH connections: 
+**Config file:** Here are the following configs for SSH connections: 
 
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104656.png?raw=true)
 
@@ -94,11 +107,11 @@ The new IP address value is placed in each variable and used in the new SSH conf
 A similar piece of code exists for the internal instance “Cobra” as well; pulling its assigned ip address. The code above instructs Terraform to create an output of the floating ip resource type associated with “Bastion_fip”; another piece of code that creates the floating ip from the available pool. More about this and the workings of Terraform code later.
 
 # The Terraform statefile: 
-Terraform uses a state file “terraform.tfstate” to keep track of the infrastructure it manages. The state maps cloudresources to the resource blocks defined in the Terraform configuration files. This allows Terraform to know what already exists and what needs to be created, updated, or deleted.    
+Terraform uses a state file “terraform.tfstate” to keep track of the infrastructure it manages. The state maps cloud resources to the resource blocks defined in the Terraform configuration files. This allows Terraform to know what already exists and what needs to be created, updated, or deleted.    
 Before making any changes, Terraform refreshes the state to compare the actual infrastructure with the configuration (when using ex. terraform plan/apply). Without this, Terraform would not function properly, and it is therefore not advised to manipulate the state file without full insight of what you are doing.
 
 # The inner workings of Terraform: 
-Coming up are examples of how Terraform works – the usage of different resource types that create resource blocks; containing attributes with values. You name the blocks and refer to the code inside through the name that is given. By doing this, we instruct Terraform to link resources and structures together to form associations and “tie it all together”. 
+Coming up are examples of how Terraform works – the usage of different resource types that create resource blocks; which contain attributes and their values. You name the blocks and refer to the code inside through the name that is given. By doing this, Terraform links resources together and creates the necessary relationships between them. 
 
 It is the same when creating networks, subnets, routers and instances – each with their unique resource types and attributes. Terraform operates by reading through the resource blocks and structures the order of creation by dependencies between the blocks: (3) Bastion_fip_associate → (2) Bastion_port → (1) Bastion-instance – as well as creating in parallel what can be. The nature of Terraform is therefore declarative rather than imperative – we specify what we want, use the correct structures – and Terraform takes care of the creation process as well as the order of it. 
 
@@ -128,7 +141,7 @@ An example of an instance in Terraform:
 
 Attributes provided describe what resources the instance will have access to, be connected to as well as name in the cloud etc. Security groups of which the instance is a member of (governs ingress/egress traffic) and keypairs to be included in the creation of the instance.  
 
-We also have “block_device” which provides instructions for how the disc is to be created and linked. This is a nested block, meaning it is included in the “Bastion” block in this case. 
+We also have “block_device” which provides instructions for how the disk is to be created and linked. This is a nested block, meaning it is included in the “Bastion” block in this case. 
 
 We can read that the data is coming from an “image”, the volume size will be “10” Gib and should the instance be deleted; also, the volume connected to it will be. Also, we have an entry for which network the instance will be connected to. Referred in the resource type above is “labnet-2”. 
 
@@ -154,7 +167,7 @@ Using data source to pull existing data about the external-net.
 
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104820.png?raw=true)
 
-Resource type “openstack_networking_router_v2”, naming it ‘rtr-1’ in Terraform and in The Cloud. We give the router an external gateway → ‘ext-net’ to ‘rtr-1’. Observe, again we are using data source to pull on existing data since the network is not managed or configured by us. 
+Resource type “openstack_networking_router_v2”, naming it ‘rtr-1’ in Terraform and in The Cloud. We give the router an external gateway → ‘ext-net’ to ‘rtr-1’. Again, we are using data source to pull on existing data since the network is not managed or configured by us. 
 
 Here, creating the interfaces on to which we connect our subnets; using the “..._router_interface” resource type: 
 
