@@ -113,15 +113,11 @@ We pull data related to the port on which the instance is:
 
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104732.png?raw=true)
 
-The data source is a Terraform block type that pulls information from already existing resources. So, the above mean; “retrieve the network port attached to the instance with the given device_id”.  
+The data source is a Terraform block type that pulls information from already existing resources. So, the above means; “retrieve the network port attached to the instance with the given device_id”.  
 
 We specify resource type “openstack_...port_v2”, assigning a value in the “device_id” attribute where we refer to the resource block for “instance”; the instance being “Bastion” which is a named block with its own specifics in the compute.tf file. 
 
-Lastly, we create a resource containing the allocated floating ip and the port connected to the instance we wish the ip to be assigned to: The data source is a Terraform block type that pulls information from already existing resources. So, the above mean; “retrieve the network port attached to the instance with the given device_id”.  
-
-We specify resource type “openstack_...port_v2”, assigning a value in the “device_id” attribute where we refer to the resource block for “instance”; the instance being “Bastion” which is a named block with its own specifics in the compute.tf file. 
-
-Lastly, we create a resource containing the allocated floating ip and the port connected to the instance we wish the ip to be assigned to: 
+Lastly, we create a resource containing the allocated floating ip and the port connected to the instance we wish the ip to be assigned to:
 
 ![Screenshot](https://github.com/xila10/Terraform-Openstack/blob/main/images/screenshots/Sk%C3%A4rmbild%202026-03-11%20104739.png?raw=true)
 
